@@ -3,7 +3,6 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-    //todo: add code that activates node server/server.js when the app runs.
     const [customers, setCustomers] = useState([]);
     const [companyName, setCompanyName] = useState('');
     const [contactName, setContactName] = useState('');
@@ -33,7 +32,6 @@ function App() {
             <h1>Customer Search</h1>
             <div className="form">
 
-                {/* Company Name */}
                 <div className="input-group">
                     <label>Company Name</label>
                     <input
@@ -49,7 +47,6 @@ function App() {
                     </div>
                 </div>
 
-                {/* Contact Name */}
                 <div className="input-group">
                     <label>Contact Name</label>
                     <input
@@ -65,7 +62,6 @@ function App() {
                     </div>
                 </div>
 
-                {/* Phone */}
                 <div className="input-group">
                     <label>Phone</label>
                     <input
@@ -81,11 +77,9 @@ function App() {
                     />
                 </div>
 
-                {/* Search Button */}
                 <button name='search_button' onClick={fetchCustomers}>Search</button>
             </div>
 
-            {/* Results Table */}
             <table>
                 <thead>
                 <tr>

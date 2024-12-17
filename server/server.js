@@ -18,7 +18,6 @@ const config = {
     },
 };
 
-// Test connection to the database when the server starts
 (async () => {
     try {
         console.log('Attempting to connect to the database...');
@@ -31,7 +30,6 @@ const config = {
     }
 })();
 
-// Endpoint
 app.get('/customers', async (req, res) => {
     try {
         const { companyName, contactName, phone, matchType } = req.query;
@@ -47,7 +45,6 @@ app.get('/customers', async (req, res) => {
             LEFT JOIN Orders o ON c.CustomerID = o.CustomerID
         `;
 
-        // Collect conditions for filtering
         const conditions = [];
 
         if (companyName) {
@@ -78,21 +75,17 @@ app.get('/customers', async (req, res) => {
             conditions.push(`c.Phone = '${phone}'`);
         }
 
-        // Append WHERE clause if any conditions exist
         if (conditions.length > 0) {
             query += ` WHERE ${conditions.join(' AND ')}`;
         }
 
-        // Add GROUP BY clause
         query += ` GROUP BY c.CompanyName, c.ContactName, c.Phone, c.Address`;
 
         console.log('Executing Query:', query);
 
-        // Execute the query
         const result = await pool.request().query(query);
         console.log('Query executed successfully. Rows returned:', result.recordset.length);
 
-        // Send the result back to the front end
         res.json(result.recordset);
     } catch (error) {
         console.error('Error retrieving customers:', error.message);

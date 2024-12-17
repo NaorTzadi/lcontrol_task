@@ -1,15 +1,17 @@
-version: '3.8'
-
 services:
   backend:
-    build: ./server
+    build:
+      context: .             # Build from the root directory
+      dockerfile: server/Dockerfile
     ports:
       - "3001:3001"
     networks:
       - app-network
 
   frontend:
-    build: ./src
+    build:
+      context: .             # Use the root directory as context
+      dockerfile: src/Dockerfile  # Path to the frontend Dockerfile
     ports:
       - "3000:80"
     depends_on:
