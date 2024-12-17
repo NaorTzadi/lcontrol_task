@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
-
+//docker-compose down
+//docker-compose up --build
 function App() {
     const [customers, setCustomers] = useState([]);
     const [companyName, setCompanyName] = useState('');
@@ -12,14 +13,10 @@ function App() {
 
     const fetchCustomers = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/customers', {
-                params: {
-                    companyName,
-                    companyMatch,
-                    contactName,
-                    contactMatch,
-                    phone,
-                },
+            const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
+            const response = await axios.get(`${API_URL}/customers`, {
+                params: { companyName, companyMatch, contactName, contactMatch, phone },
             });
             setCustomers(response.data);
         } catch (error) {
